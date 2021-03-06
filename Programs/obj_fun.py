@@ -20,11 +20,11 @@ def obj_func(dic,order_cities,item_pick):
     distance=np.linalg.norm(point1 - point2)
     #because at this point w=0 the dividen is just vmax
     sum_part=(distance/(v_max))
-    print(sum_part,"sum part")
+    #print(sum_part,"sum part")
 
     for l in range(len(order_cities)):
         x=order_cities[l]
-        print(x,"x")
+        #print(x,"x")
         items_node=list(zip(*np.where(node==x)))
         value_ac_city=0
         
@@ -34,8 +34,8 @@ def obj_func(dic,order_cities,item_pick):
                 
                 weight_ac_city=weight_ac_city+(weight[o]*item_pick[o])
                 value_ac_city=value_ac_city+(value_p[o]*item_pick[o])
-                print(weight_ac_city,"wight total")
-                print(value_ac_city,"value of citie")
+                #print(weight_ac_city,"wight total")
+                #print(value_ac_city,"value of citie")
        #value and weight calculation
         value_ac_total=value_ac_total+value_ac_city
 
@@ -52,13 +52,13 @@ def obj_func(dic,order_cities,item_pick):
 
         point1=np.array((int(point1p[0]),int(point1p[1])))
         point2=np.array((int(point2p[0]),int(point2p[1])))
-        print(point1,point2)
+        #print(point1,point2)
 
         distance=np.linalg.norm(point1 - point2)
 
         sum_part=sum_part+(distance/(v_max-(v_const*weight_ac_city)))
-        print(sum_part,"sum part")
-    print(value_ac_total,"value total")
+        #print(sum_part,"sum part")
+    #print(value_ac_total,"value total")
     obj_func_val=value_ac_total-(dic["renting rate"]*sum_part)
 
     return obj_func_val
