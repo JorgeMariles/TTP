@@ -2,12 +2,12 @@ def read_instance(file):
     
     problem_name=file.readline()[15:].strip()
     knapsack_data_type=file.readline()[20:].strip()
-    dimension_cities=file.readline()[11:].strip()
-    number_of_items=file.readline()[17:].strip()
-    capacity_bag=file.readline()[22:].strip()
-    min_speed=file.readline()[12:].strip()
-    max_speed=file.readline()[12:].strip()
-    renting_r=file.readline()[15:].strip()
+    dimension_cities=int(file.readline()[11:].strip())
+    number_of_items=int(file.readline()[17:].strip())
+    capacity_bag=float(file.readline()[22:].strip())
+    min_speed=float(file.readline()[12:].strip())
+    max_speed=float(file.readline()[12:].strip())
+    renting_r=float(file.readline()[15:].strip())
     edge_weight_t=file.readline()[18:].strip()
     file.readline()
     index_cities=[]
@@ -26,9 +26,9 @@ def read_instance(file):
             line=file.readline()
             data = line.split()
             index_items.append(data[0])
-            profit.append(data[1])
-            weight.append(data[2])
-            assigned_node.append(data[3])
+            profit.append(float(data[1]))
+            weight.append(float(data[2]))
+            assigned_node.append(int(data[3]))
     dic={
         "problem name":problem_name,
         "knapsack data type":knapsack_data_type,

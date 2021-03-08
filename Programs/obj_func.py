@@ -1,6 +1,6 @@
 #takes the dic, the order of cites, and a binary vector to see if an item is picked or not. returns the obj funcion val
+import numpy as np
 def obj_func(dic,order_cities,item_pick):
-    import numpy as np
     weight_ac_city=0
     value_ac_total=0
     node=np.array(dic["assigned node"])
@@ -9,11 +9,12 @@ def obj_func(dic,order_cities,item_pick):
     item_pick=np.array(item_pick)
     last_city=1
     v_const=(dic["max speed"]-dic["min speed"])/dic["capacity of bag"]
-    print(v_const)
+   # print(v_const)
     v_max=dic["max speed"]
+    #print(order_cities[0]-1)
     #distance de la primera city 
     point1p=dic['coords citites'][0]
-    point2p=dic['coords citites'][order_cities[0]-1]
+    point2p=dic['coords citites'][int(order_cities[0]-1)]
     
     point1=np.array((int(point1p[0]),int(point1p[1])))
     point2=np.array((int(point2p[0]),int(point2p[1])))
@@ -23,7 +24,7 @@ def obj_func(dic,order_cities,item_pick):
     #print(sum_part,"sum part")
 
     for l in range(len(order_cities)):
-        x=order_cities[l]
+        x=int(order_cities[l])
         #print(x,"x")
         items_node=list(zip(*np.where(node==x)))
         value_ac_city=0
@@ -43,7 +44,7 @@ def obj_func(dic,order_cities,item_pick):
         if l <(len(order_cities)-1):
 
             point1p=dic['coords citites'][x-1]
-            point2p=dic['coords citites'][(order_cities[l+1])-1]
+            point2p=dic['coords citites'][int(order_cities[l+1])-1]
             
 
         else:
