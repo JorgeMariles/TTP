@@ -5,14 +5,16 @@ from random import randint
 # Las funciones del algoritmo genetico celular comienzan aqui cambiadas para servir en el ttp
 
 
-def crossover(fitness,population,d1,d2,mr,bina,fixa):
+def crossover(fitness,population_knap,population_tsp,d1,d2,mr):
     #this function choses the best fitness of the neighbors and then convines both parents
     #if it is viable it will replace the individual being tested
-    new_population=np.zeros(np.shape(population))
-    assert new_population.shape == population.shape
-    for k in range(np.shape(population)[0]): 
-        for z in range(np.shape(population)[1]):
-            parent_1=population[k,z,:].copy()
+    new_population_knap=np.zeros(np.shape(population_knap))
+    new_population_tsp=np.zeros(np.shape(population_tsp))
+
+    for k in range(np.shape(fitness)[0]): 
+        for z in range(np.shape(fitness)[1]):
+            parent_1_k=population_knap[k,z,:].copy()
+            parent_1_t=population_tsp[k,z,:].copy()
             #l5 neighbors
             l=np.array([fitness[k,(z-1)%d2],fitness[(k-1)%d1,z],fitness[k,(z+1)%d2],fitness[(k+1)%d1,z]]) 
             selector=np.random.choice(np.arange(4), size=2, replace=False)
@@ -23,27 +25,34 @@ def crossover(fitness,population,d1,d2,mr,bina,fixa):
             winner=s_v[index]
             #print(parent_1,"parent1")
             if winner==0:
-                parent_2=population[k,(z-1)%d2,:].copy()
+                parent_2_k=population_knap[k,(z-1)%d2,:].copy()
+                parent_2_t=population_tsp[k,(z-1)%d2,:].copy()
             elif winner==1:    
-                parent_2=population[(k-1)%d1,z,:].copy()
+                parent_2_k=population_knap[(k-1)%d1,z,:].copy()
+                parent_2_t=population_tsp[(k-1)%d1,z,:].copy()
             elif winner==2:
-                parent_2=population[k,(z+1)%d2,:].copy()
+                parent_2_k=population_knap[k,(z+1)%d2,:].copy()
+                parent_2_t=population_tsp[k,(z+1)%d2,:].copy()
             elif winner==3:
-                parent_2=population[(k+1)%d1,z,:].copy()                
-            prepop=offspring_op(parent_2,parent_1,population)  
+                parent_2_k=population_knap[(k+1)%d1,z,:].copy()
+                parent_2_t=population_tsp[(k+1)%d1,z,:].copy() 
+                
+            prepop_knap=offspring_op(parent_2_k,parent_1_k,population_knap) 
+            prepop_tsp=offspring_op(parent_2_t,parent_1_t,population_tsp)
             #print(parent_1,parent_2,prepop)
-            if fixa:
-                prepop=fix_func(prepop)
             
-            if bina:
-                prepop=mutation_bin(prepop,mr)
-            else:
-                prepop=mutation_swap(prepop,mr)
-            new_population[k,z,:]=prepop
-    
+            prepop_tsp=fix_func(prepop_tsp)
+            
+            
+            prepop_knap=mutation_bin(prepop_knap,mr)
+            
+            prepop_tsp=mutation_swap(prepop_tsp,mr)
+            
+            new_population_tsp[k,z,:]=prepop_tsp
+            new_population_knap[k,z,:]=prepop_knap
             #print(new_population[k,z,:],"fianl")  
             #print("----------------------")              
-    return new_population
+    return new_population_knap,new_population_tsp
 
 
 
