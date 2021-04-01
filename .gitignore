@@ -1,4 +1,4 @@
 .ipynb_checkpoints
 *.rar
-Programs/__pycache__
+Programs/__pycache__/
 *.py[cod]
