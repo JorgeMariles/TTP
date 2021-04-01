@@ -40,7 +40,7 @@ def obj_func(dic,order_cities,item_pick):
        #value and weight calculation
         value_ac_total=value_ac_total+value_ac_city
 
-        distance
+        #distance
         if l <(len(order_cities)-1):
 
             point1p=dic['coords citites'][x-1]
