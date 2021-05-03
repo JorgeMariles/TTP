@@ -16,7 +16,7 @@ def read_instance(file):
             line=file.readline()
             data = line.split()
             index_cities.append(data[0])
-            coords_cities.append((data[1],data[2]))
+            coords_cities.append((int(float(data[1])),int(float(data[2]))))
     file.readline()
     index_items=[]
     profit=[]
